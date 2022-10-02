@@ -19,12 +19,6 @@ local padding_r = Instance.new("UIPadding")
 local hidebtn = Instance.new("TextButton")
 local closebtn = Instance.new("TextButton")
 local Elements = Instance.new("ScrollingFrame")
-local ButtonFrame = Instance.new("Frame")
-local btnUICorner = Instance.new("UICorner")
-local ButtonTitle = Instance.new("TextLabel")
-local ButtonTitle_2 = Instance.new("TextLabel")
-local ButtonThing = Instance.new("TextButton")
-local btnThingUICorner = Instance.new("UICorner")
 local UIListLayout = Instance.new("UIListLayout")
 local elementsListing = Instance.new("UIListLayout")
 local elementsPadding = Instance.new("UIPadding")
@@ -162,6 +156,14 @@ function ElementsHandler:CreateButton(btnTitle, btnInfo, callback)
     btnTitle = btnTitle or "nil"
     btnInfo = btnInfo or "nil"
     callback = callback or function() end
+
+
+    local ButtonFrame = Instance.new("Frame")
+    local btnUICorner = Instance.new("UICorner")
+    local ButtonTitle = Instance.new("TextLabel")
+    local ButtonTitle_2 = Instance.new("TextLabel")
+    local ButtonThing = Instance.new("TextButton")
+    local btnThingUICorner = Instance.new("UICorner")
 
     ButtonFrame.Name = "ButtonFrame"
     ButtonFrame.Parent = Elements
