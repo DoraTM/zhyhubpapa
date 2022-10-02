@@ -1,10 +1,3 @@
-local userids = {
-[3576683544] = true, -- this is my userid, remove it and add as much as you want in it.
-[] = true,
-[2500233044] = true,
-[] = true,
-[] = true,
-[470592879] = true,
+return {
+ "A8DDCC46-BEA0-4534-A6AA-D3A16E6FF116"
 }
-return userids
--- These will be our whitelisted users
