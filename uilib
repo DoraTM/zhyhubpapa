@@ -216,6 +216,7 @@ function ElementsHandler:CreateButton(btnTitle, btnInfo, callback)
     btnThingUICorner.CornerRadius = UDim.new(0, 6)
     btnThingUICorner.Name = "btnThingUICorner"
     btnThingUICorner.Parent = ButtonThing
+    return ElementsHandler
 end
 
 
