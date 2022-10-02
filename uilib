@@ -110,11 +110,16 @@ closebtn.TextSize = 14.000
 
 Elements.Name = "Elements"
 Elements.Parent = MainFrame
-Elements.Active = true
-Elements.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Elements.AnchorPoint = Vector2.new(0.5, 0.5)
+Elements.BackgroundColor3 = Color3.fromRGB(248, 248, 248)
 Elements.BackgroundTransparency = 1.000
-Elements.Position = UDim2.new(0.0208901111, 0, 0.0768226013, 0)
-Elements.Size = UDim2.new(0, 505, 0, 294)
+Elements.BorderSizePixel = 0
+Elements.Position = UDim2.new(0.499786139, 0, 0.5384112, 0)
+Elements.Selectable = false
+Elements.Size = UDim2.new(1.00042772, 0, 0.923177421, 0)
+Elements.CanvasSize = UDim2.new(0, 0, 0, 0)
+Elements.ScrollBarThickness = 4
+Elements.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
 
 
 UIListLayout.Parent = Elements
