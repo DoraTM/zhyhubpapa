@@ -1,4 +1,4 @@
-userids = {
+local userids = {
 [3576683544] = true, -- this is my userid, remove it and add as much as you want in it.
 [] = true,
 [2500233044] = true,
