@@ -1,246 +1,327 @@
--- Gui to Lua
--- Version: 3.2
-
--- Instances:
-local Window = {}
-
-function Window:CreateWindow(title) 
-if game.CoreGui:FindFirstChild("Main") then
+-- [[ Velenium hub ]]
+local WindowTable = {}
+function WindowTable:CreateWindow(title)
+    title = title or "TITLE"
+    if game.CoreGui:FindFirstChild("Main") then
         game.CoreGui:FindFirstChild("Main"):Destroy()
-end
-title = title or "TITLE"
-local Main = Instance.new("ScreenGui")
-local MainFrame = Instance.new("Frame")
-local top = Instance.new("Frame")
-local name = Instance.new("TextLabel")
-local padding_n = Instance.new("UIPadding")
-local rhold = Instance.new("Frame")
-local list_r = Instance.new("UIListLayout")
-local padding_r = Instance.new("UIPadding")
-local hidebtn = Instance.new("TextButton")
-local closebtn = Instance.new("TextButton")
-local Elements = Instance.new("ScrollingFrame")
-local UIListLayout = Instance.new("UIListLayout")
-local elementsListing = Instance.new("UIListLayout")
-local elementsPadding = Instance.new("UIPadding")
-local openlib = Instance.new("ImageButton")
-local libopenname = Instance.new("TextLabel")
+    end
+    local Main = Instance.new("ScreenGui")
+    local MainFrame = Instance.new("Frame")
+    local mainCorner = Instance.new("UICorner")
+    local SideBar = Instance.new("Frame")
+    local sideCorner = Instance.new("UICorner")
+    local allTabs = Instance.new("Frame")
+    local tabListing = Instance.new("UIListLayout")
+    local allPages = Instance.new("Frame")
+    local mainCorner_2 = Instance.new("UICorner")
+    local pagesFolder = Instance.new("Folder")
+    local top = Instance.new("Frame")
+    local topCorner = Instance.new("UICorner")
+    local titlelabel = Instance.new("TextLabel")
+    local sort = Instance.new("ImageButton")
+    local exitButton = Instance.new("ImageButton")
 
---Properties:
+    --Properties:
 
-Main.Name = "Main"
-Main.Parent = game.CoreGui
+    Main.Name = "Main"
+    Main.Parent = game.CoreGui
+    Main.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    Main.ResetOnSpawn = false
 
-MainFrame.Name = "MainFrame"
-MainFrame.Parent = Main
-MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-MainFrame.BackgroundTransparency = 0.500
-MainFrame.BorderSizePixel = 0
-MainFrame.Position = UDim2.new(0.5, -226, 0.5, -109)
-MainFrame.Size = UDim2.new(0, 516, 0, 319)
-MainFrame.ZIndex = -1
-MainFrame.Active = true
-MainFrame.Draggable = true
-
-top.Name = "top"
-top.Parent = MainFrame
-top.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-top.BackgroundTransparency = 0.500
-top.BorderSizePixel = 0
-top.Position = UDim2.new(-0.000427719235, 0, -0.00154735602, 0)
-top.Size = UDim2.new(0, 516, 0, 25)
-top.ZIndex = 0
-
-name.Name = "name"
-name.Parent = top
-name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-name.BackgroundTransparency = 1.000
-name.Size = UDim2.new(0, 100, 1, 0)
-name.Font = Enum.Font.Gotham
-name.Text = title
-name.TextColor3 = Color3.fromRGB(255, 255, 255)
-name.TextSize = 14.000
-name.TextXAlignment = Enum.TextXAlignment.Left
-
-padding_n.Name = "padding_n"
-padding_n.Parent = name
-padding_n.PaddingLeft = UDim.new(0, 10)
-
-rhold.Name = "rhold"
-rhold.Parent = top
-rhold.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-rhold.BackgroundTransparency = 1.000
-rhold.BorderSizePixel = 0
-rhold.Position = UDim2.new(0.944812417, 0, 0, 0)
-rhold.Size = UDim2.new(0, 25, 0, 25)
-
-list_r.Name = "list_r"
-list_r.Parent = rhold
-list_r.FillDirection = Enum.FillDirection.Horizontal
-list_r.HorizontalAlignment = Enum.HorizontalAlignment.Right
-list_r.SortOrder = Enum.SortOrder.LayoutOrder
-list_r.VerticalAlignment = Enum.VerticalAlignment.Center
-list_r.Padding = UDim.new(0, 5)
-
-padding_r.Name = "padding_r"
-padding_r.Parent = rhold
-padding_r.PaddingRight = UDim.new(0, 5)
-
-hidebtn.Name = "hidebtn"
-hidebtn.Parent = rhold
-hidebtn.BackgroundColor3 = Color3.fromRGB(131, 131, 131)
-hidebtn.BorderSizePixel = 0
-hidebtn.Position = UDim2.new(0.25, 0, 0.200000003, 0)
-hidebtn.Size = UDim2.new(0, 15, 0, 15)
-hidebtn.Font = Enum.Font.SourceSans
-hidebtn.Text = ""
-hidebtn.TextColor3 = Color3.fromRGB(0, 0, 0)
-hidebtn.TextSize = 14.000
-
-closebtn.Name = "closebtn"
-closebtn.Parent = rhold
-closebtn.BackgroundColor3 = Color3.fromRGB(255, 46, 46)
-closebtn.BorderSizePixel = 0
-closebtn.Position = UDim2.new(0.25, 0, 0.200000003, 0)
-closebtn.Size = UDim2.new(0, 15, 0, 15)
-closebtn.Font = Enum.Font.SourceSans
-closebtn.Text = ""
-closebtn.TextColor3 = Color3.fromRGB(0, 0, 0)
-closebtn.TextSize = 14.000
-
-Elements.Name = "Elements"
-Elements.Parent = MainFrame
-Elements.AnchorPoint = Vector2.new(0.5, 0.5)
-Elements.BackgroundColor3 = Color3.fromRGB(248, 248, 248)
-Elements.BackgroundTransparency = 1.000
-Elements.BorderSizePixel = 0
-Elements.Position = UDim2.new(0.518197, 0, 0.5384112, 0)
-Elements.Selectable = false
-Elements.Size = UDim2.new(0.963606, 0, 0.923177421, 0)
-Elements.CanvasSize = UDim2.new(0, 0, 0, 0)
-Elements.ScrollBarThickness = 4
-Elements.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+    MainFrame.Name = "MainFrame"
+    MainFrame.Parent = Main
+    MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    MainFrame.Position = UDim2.new(0.396969676, 0, 0.302184492, 0)
+    MainFrame.Size = UDim2.new(0, 468, 0, 385)
+    MainFrame.Active = true
+    MainFrame.Draggable = true
 
 
-UIListLayout.Parent = Elements
-UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIListLayout.Padding = UDim.new(0, 2)
+    mainCorner.CornerRadius = UDim.new(0, 3)
+    mainCorner.Name = "mainCorner"
+    mainCorner.Parent = MainFrame
 
-elementsListing.Name = "elementsListing"
-elementsListing.Parent = Elements
-elementsListing.HorizontalAlignment = Enum.HorizontalAlignment.Center
-elementsListing.SortOrder = Enum.SortOrder.LayoutOrder
-elementsListing.Padding = UDim.new(0, 5)
+    SideBar.Name = "SideBar"
+    SideBar.Parent = Container
+    SideBar.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    SideBar.BorderSizePixel = 0
+    SideBar.Position = UDim2.new(-0.425, 0,-0.068, 0)
+    SideBar.Size = UDim2.new(0, 137, 0, 340)
+    SideBar.Visible = false
 
-elementsPadding.Name = "elementsPadding"
-elementsPadding.Parent = Elements
-elementsPadding.PaddingRight = UDim.new(0, 5)
-elementsPadding.PaddingTop = UDim.new(0, 5)
+    sideCorner.CornerRadius = UDim.new(0, 3)
+    sideCorner.Name = "sideCorner"
+    sideCorner.Parent = SideBar
 
-openlib.Name = "openlib"
-openlib.Parent = Main
-openlib.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-openlib.BackgroundTransparency = 1.000
-openlib.Position = UDim2.new(0, 0,1.093, -100)
-openlib.Size = UDim2.new(0, 100,0, 24)
-openlib.Visible = false
-
-libopenname.Name = "libopenname"
-libopenname.Parent = openlib
-libopenname.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-libopenname.BackgroundTransparency = 1.000
-libopenname.Size = UDim2.new(0, 100, 0, 17)
-libopenname.Font = Enum.Font.Code
-libopenname.Text = "Open"
-libopenname.TextColor3 = Color3.fromRGB(255, 255, 255)
-libopenname.TextSize = 14.000
-libopenname.TextStrokeTransparency = 0.000
-
-local ElementsHandler = {}
-
-function ElementsHandler:CreateButton(btnTitle, btnInfo, callback)
-    btnTitle = btnTitle or "nil"
-    btnInfo = btnInfo or "nil"
-    callback = callback or function() end
+    allTabs.Name = "allTabs"
+    allTabs.Parent = SideBar
+    allTabs.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    allTabs.BackgroundTransparency = 1.000
+    allTabs.BorderSizePixel = 0
+    allTabs.Position = UDim2.new(0.0483117774, 0, 0.0211765971, 0)
+    allTabs.Size = UDim2.new(0, 120, 0, 340)
 
 
-    local ButtonFrame = Instance.new("Frame")
-    local btnUICorner = Instance.new("UICorner")
-    local ButtonTitle = Instance.new("TextLabel")
-    local ButtonTitle_2 = Instance.new("TextLabel")
-    local ButtonThing = Instance.new("TextButton")
-    local btnThingUICorner = Instance.new("UICorner")
 
-    ButtonFrame.Name = "ButtonFrame"
-    ButtonFrame.Parent = Elements
-    ButtonFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    ButtonFrame.BackgroundTransparency = 0.300
-    ButtonFrame.Size = UDim2.new(0, 481, 0, 47)
+    tabListing.Name = "tabListing"
+    tabListing.Parent = allTabs
+    tabListing.SortOrder = Enum.SortOrder.LayoutOrder
+    tabListing.Padding = UDim.new(0, 2)
 
-    btnUICorner.CornerRadius = UDim.new(0, 4)
-    btnUICorner.Name = "btnUICorner"
-    btnUICorner.Parent = ButtonFrame
+    allPages.Name = "allPages"
+    allPages.Parent = MainFrame
+    allPages.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    allPages.Position = UDim2.new(0.01800837, 0, 0.111688308, 0)
+    allPages.Size = UDim2.new(0, 459, 0, 340)
 
-    ButtonTitle.Name = "ButtonTitle"
-    ButtonTitle.Parent = ButtonFrame
-    ButtonTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ButtonTitle.BackgroundTransparency = 1.000
-    ButtonTitle.Position = UDim2.new(0.0187110193, 0, 0, 0)
-    ButtonTitle.Size = UDim2.new(0, 467, 0, 24)
-    ButtonTitle.Font = Enum.Font.SourceSans
-    ButtonTitle.Text = btnTitle
-    ButtonTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-    ButtonTitle.TextSize = 20.000
-    ButtonTitle.TextXAlignment = Enum.TextXAlignment.Left
+    mainCorner_2.CornerRadius = UDim.new(0, 3)
+    mainCorner_2.Name = "mainCorner"
+    mainCorner_2.Parent = allPages
 
-    ButtonTitle_2.Name = "ButtonTitle"
-    ButtonTitle_2.Parent = ButtonFrame
-    ButtonTitle_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ButtonTitle_2.BackgroundTransparency = 1.000
-    ButtonTitle_2.Position = UDim2.new(0.0187110193, 0, 0.489361703, 0)
-    ButtonTitle_2.Size = UDim2.new(0, 197, 0, 24)
-    ButtonTitle_2.Font = Enum.Font.SourceSans
-    ButtonTitle_2.Text = btnInfo
-    ButtonTitle_2.TextColor3 = Color3.fromRGB(255, 255, 255)
-    ButtonTitle_2.TextSize = 16.000
-    ButtonTitle_2.TextXAlignment = Enum.TextXAlignment.Left
+    pagesFolder.Name = "pagesFolder"
+    pagesFolder.Parent = allPages
 
-    ButtonThing.Name = "ButtonThing"
-    ButtonThing.Parent = ButtonFrame
-    ButtonThing.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    ButtonThing.BackgroundTransparency = 0.400
-    ButtonThing.Position = UDim2.new(0.839916825, 0, 0.234042555, 0)
-    ButtonThing.Size = UDim2.new(0, 57, 0, 24)
-    ButtonThing.Font = Enum.Font.RobotoMono
-    ButtonThing.Text = "Run"
-    ButtonThing.TextColor3 = Color3.fromRGB(255, 255, 255)
-    ButtonThing.TextSize = 14.000
-    ButtonThing.MouseButton1Click:Connect(function()
-        callback()
+
+    top.Name = "top"
+    top.Parent = MainFrame
+    top.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    top.Size = UDim2.new(0, 468, 0, 43)
+    
+
+    topCorner.CornerRadius = UDim.new(0, 3)
+    topCorner.Name = "topCorner"
+    topCorner.Parent = top
+
+    titlelabel.Name = "titlelabel"
+    titlelabel.Parent = top
+    titlelabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    titlelabel.BackgroundTransparency = 1.000
+    titlelabel.Position = UDim2.new(0.086384438, 0, 0, 0)
+    titlelabel.Size = UDim2.new(0, 176, 0, 43)
+    titlelabel.Font = Enum.Font.Gotham
+    titlelabel.Text = title
+    titlelabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    titlelabel.TextSize = 16.000
+    titlelabel.TextXAlignment = Enum.TextXAlignment.Left
+
+
+
+    local tabButton = Instance.new("TextButton")
+    local tabCorner = Instance.new("UICorner")
+    local elementsListing = Instance.new("UIListLayout")
+    local newPage = Instance.new("ScrollingFrame")
+
+    local elementsPadding = Instance.new("UIPadding")
+
+    elementsPadding.Name = "elementsPadding"
+    elementsPadding.Parent = newPage
+    elementsPadding.PaddingRight = UDim.new(0, 5)
+    elementsPadding.PaddingTop = UDim.new(0, 5)
+
+    elementsListing.Name = "elementsListing"
+    elementsListing.Parent = newPage
+    elementsListing.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    elementsListing.SortOrder = Enum.SortOrder.LayoutOrder
+    elementsListing.Padding = UDim.new(0, 5)
+
+    tabButton.Name = "tabButton"
+    tabButton.Parent = allTabs
+    tabButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    tabButton.BorderColor3 = Color3.fromRGB(255, 255, 255)
+    tabButton.Size = UDim2.new(0, 121, 0, 30)
+    tabButton.Font = Enum.Font.Gotham
+    tabButton.Text = "Example"
+    tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    tabButton.TextSize = 14.000
+
+
+    tabCorner.CornerRadius = UDim.new(0, 3)
+    tabCorner.Name = "tabCorner"
+    tabCorner.Parent = tabButton
+
+    
+    newPage.Name = "newPage"
+    newPage.Parent = allPages
+    newPage.AnchorPoint = Vector2.new(0.5, 0.5)
+    newPage.BackgroundColor3 = Color3.fromRGB(248, 248, 248)
+    newPage.BackgroundTransparency = 1.000
+    newPage.BorderSizePixel = 0
+    newPage.Position = UDim2.new(0.494612008, 0, 0.497498751, 0)
+    newPage.Selectable = false
+    newPage.Size = UDim2.new(0.989224076, 0, 1.00500238, 0)
+    newPage.CanvasSize = UDim2.new(0, 0, 0, 0)
+    newPage.ScrollBarThickness = 4
+    newPage.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+
+    local ElementsHandler = {}
+
+    exitButton.Name = "exitButton"
+    exitButton.Parent = top
+    exitButton.BackgroundTransparency = 1.000
+    exitButton.LayoutOrder = 5
+    exitButton.Position = UDim2.new(0.931569934, 0, 0.199920297, 0)
+    exitButton.Size = UDim2.new(0, 25, 0, 25)
+    exitButton.ZIndex = 2
+    exitButton.Image = "rbxassetid://3926305904"
+    exitButton.ImageRectOffset = Vector2.new(924, 724)
+    exitButton.ImageRectSize = Vector2.new(36, 36)
+    exitButton.MouseButton1Click:Connect(function()
+        local Main = game.CoreGui.Main
+        Main:Destroy()
     end)
 
-    btnThingUICorner.CornerRadius = UDim.new(0, 6)
-    btnThingUICorner.Name = "btnThingUICorner"
-    btnThingUICorner.Parent = ButtonThing
-    return ElementsHandler
+    
+        
+
+        function ElementsHandler:CreateButton(buttonTitle, buttonDescription, callback)
+            buttonTitle = buttonTitle or "Button Title"
+            buttonDescription = buttonDescription or "Button Description"
+            callback = callback or function() end
+            local ButtonFrame = Instance.new("Frame")
+            local Container = Instance.new("Frame")
+            local UICorner = Instance.new("UICorner")
+            local Accent = Instance.new("Frame")
+            local Text = Instance.new("Frame")
+            local textListLayout = Instance.new("UIListLayout")
+            local Title = Instance.new("TextLabel")
+            local Description = Instance.new("TextLabel")
+            local ExecuteButton = Instance.new("TextButton")
+            local executeCorner = Instance.new("UICorner")
+            local Shadow = Instance.new("Frame")
+            local ambientShadow = Instance.new("ImageLabel")
+            local penumbraShadow = Instance.new("ImageLabel")
+            local umbraShadow = Instance.new("ImageLabel")
+
+            
+            ButtonFrame.Name = "ButtonFrame"
+            ButtonFrame.Parent = newPage
+            ButtonFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            ButtonFrame.BackgroundTransparency = 1.000
+            ButtonFrame.BorderSizePixel = 0
+            ButtonFrame.LayoutOrder = 2
+            ButtonFrame.Size = UDim2.new(1, 0, 0, 50)
+
+
+            Container.Name = "Container"
+            Container.Parent = ButtonFrame
+            Container.AnchorPoint = Vector2.new(0.5, 0)
+            Container.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+            Container.BackgroundTransparency = 1.000
+            Container.BorderSizePixel = 0
+            Container.Position = UDim2.new(0.5, 0, 0, 0)
+            Container.Size = UDim2.new(1, -48, 1, 0)
+            Container.ZIndex = 2
+
+            UICorner.CornerRadius = UDim.new(0, 4)
+            UICorner.Parent = Container
+
+
+            Accent.Name = "Accent"
+            Accent.Parent = Container
+            Accent.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+            Accent.BorderSizePixel = 0
+            Accent.Position = UDim2.new(0, 0, 1, 0)
+            Accent.Size = UDim2.new(1, 0, 0, 1)
+        
+            Text.Name = "Text"
+            Text.Parent = Container
+            Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Text.BackgroundTransparency = 1.000
+            Text.BorderSizePixel = 0
+            Text.Position = UDim2.new(0, 8, 0, 0)
+            Text.Size = UDim2.new(1, -16, 1, 0)
+        
+            textListLayout.Name = "textListLayout"
+            textListLayout.Parent = Text
+            textListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+            textListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+        
+            Title.Name = "Title"
+            Title.Parent = Text
+            Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Title.BackgroundTransparency = 1.000
+            Title.BorderSizePixel = 0
+            Title.Size = UDim2.new(1, 0, 0, 18)
+            Title.Font = Enum.Font.Gotham
+            Title.Text = buttonTitle
+            Title.TextColor3 = Color3.fromRGB(250, 250, 250)
+            Title.TextSize = 16.000
+            Title.TextXAlignment = Enum.TextXAlignment.Left
+        
+            Description.Name = "Description"
+            Description.Parent = Text
+            Description.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Description.BackgroundTransparency = 1.000
+            Description.BorderSizePixel = 0
+            Description.Size = UDim2.new(1, 0, 0, 14)
+            Description.Font = Enum.Font.GothamMedium
+            Description.Text = buttonDescription
+            Description.TextColor3 = Color3.fromRGB(150, 150, 150)
+            Description.TextSize = 13.000
+            Description.TextXAlignment = Enum.TextXAlignment.Left
+        
+            ExecuteButton.Name = "ExecuteButton"
+            ExecuteButton.Parent = Container
+            ExecuteButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+            ExecuteButton.Position = UDim2.new(0.798053503, 0, 0.280000001, 0)
+            ExecuteButton.Size = UDim2.new(0, 71, 0, 27)
+            ExecuteButton.Font = Enum.Font.GothamMedium
+            ExecuteButton.Text = "Execute"
+            ExecuteButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            ExecuteButton.TextSize = 12.000
+            ExecuteButton.MouseButton1Click:Connect(function()
+                callback()
+            end)
+        
+            executeCorner.CornerRadius = UDim.new(0, 6)
+            executeCorner.Name = "executeCorner"
+            executeCorner.Parent = ExecuteButton
+        
+            Shadow.Name = "Shadow"
+            Shadow.Parent = ButtonFrame
+            Shadow.AnchorPoint = Vector2.new(0.5, 0)
+            Shadow.BackgroundTransparency = 1.000
+            Shadow.Position = UDim2.new(0.5, 0, 0, 0)
+            Shadow.Size = UDim2.new(1, -48, 1, 0)
+            Shadow.Visible = false
+        
+            ambientShadow.Name = "ambientShadow"
+            ambientShadow.Parent = Shadow
+            ambientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+            ambientShadow.BackgroundTransparency = 1.000
+            ambientShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
+            ambientShadow.Size = UDim2.new(1, 4, 1, 4)
+            ambientShadow.Image = "rbxassetid://1316045217"
+            ambientShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+            ambientShadow.ImageTransparency = 0.880
+            ambientShadow.ScaleType = Enum.ScaleType.Slice
+            ambientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+        
+            penumbraShadow.Name = "penumbraShadow"
+            penumbraShadow.Parent = Shadow
+            penumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+            penumbraShadow.BackgroundTransparency = 1.000
+            penumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
+            penumbraShadow.Size = UDim2.new(1, 4, 1, 4)
+            penumbraShadow.Image = "rbxassetid://1316045217"
+            penumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+            penumbraShadow.ImageTransparency = 0.880
+            penumbraShadow.ScaleType = Enum.ScaleType.Slice
+            penumbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+        
+            umbraShadow.Name = "umbraShadow"
+            umbraShadow.Parent = Shadow
+            umbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+            umbraShadow.BackgroundTransparency = 1.000
+            umbraShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
+            umbraShadow.Size = UDim2.new(1, 4, 1, 4)
+            umbraShadow.Image = "rbxassetid://1316045217"
+            umbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+            umbraShadow.ImageTransparency = 0.860
+            umbraShadow.ScaleType = Enum.ScaleType.Slice
+            umbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+        end
+        return ElementsHandler
 end
-
-
-
-closebtn.MouseButton1Click:Connect(function()
-    Main:Destroy()
-end)
-  
-  hidebtn.MouseButton1Click:Connect(function()
-    MainFrame.Visible = false
-    openlib.Visible = true
-end)
-  
-  openlib.MouseButton1Click:Connect(function()
-    MainFrame.Visible = true
-    openlib.Visible = false
-end)
- return ElementsHandler
-end
-
-return Window
+return WindowTable
+ 
