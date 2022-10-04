@@ -1,0 +1,9 @@
+setclipboard(game:GetService("RbxAnalyticsService"):GetClientId())
+function notify(title,text,duration)
+game.StarterGui:SetCore("SendNotification", {
+    Title = title; 
+    Text = text; 
+    Duration = duration or 5;
+})
+end
+notify("Copied HWID to clipboard!", "Successfully copied hwid", 5)
